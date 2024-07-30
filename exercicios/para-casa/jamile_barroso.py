@@ -7,30 +7,51 @@
 #   •	Quantidade vendida
 #   •	Produto
 
+## Perguntas para responder
+# 1.	Calcular a média, mediana, mínimo, máximo e desvio padrão dos valores vdas vendas e quantidade vendida.
+# 2.	Qual produto que mais vendeu? (Usar a moda para identificar).
 
-# from tabulate import tabulate
+import pandas as pd #importar biblioteca pandas
+from tabulate import tabulate #importar biblioteca para estilizar os dados
 
-# print(tabulate(arquivo.head(), headers='keys', tablefmt='fancy_grid'))
+datas = pd.read_csv('vendas_ficticias.csv') #lendo os dados do arquivo vendas_ficticias.csv 
 
-# f = open('vendas_ficticias.csv', 'r')
+#Imprimindo os dados da tabela
+print(tabulate(datas, headers='keys', tablefmt='fancy_grid'))
 
-# data = f.read()
+def dados_estatisticos(x,y,z):#declarando função com os parametros os 3 parametros utilizados
+    print("\n-------------------------Valores das Vendas-------------------------\n")
+    #1. Média, mediana, máximo, mínimo e desvio padrão dos valores das vendas
+    avg_sales = round(x.mean(),2)
+    median_sales = round(x.median(),2)
+    max_sales = round(x.max(),2)
+    min_sales = round(x.min(),2)
+    standard_deviation_sales = round(x.var() ** 0.5,2)
 
-# rows = data.split('\n')
+    print(f'Média Valor da Venda: R${avg_sales}')
+    print(f'Mediana Valor da Venda: R${median_sales}')
+    print(f'Máximo Valor de Venda: R${max_sales}')
+    print(f'Mínimo Valor de Venda: R${min_sales}')
+    print(f'Desvio Padrão das Vendas: R${standard_deviation_sales}')
 
-# print(rows)
+    print("\n-------------------------Quantidade Vendida-------------------------\n")
 
-# full_data = []
+    #1. Média, mediana, máximo, mínimo e desvio padrão das quantidades vendidas
+    avg_amount = round(y.mean(),2)
+    median_amount = round(y.median(),2)
+    max_amount = round(y.max(),2)
+    min_amount = round(y.min(),2)
+    standard_deviation_amount = round(y.var() ** 0.5,2)
 
-# for row in rows:
-#     split_row = row.split(",")
-#     full_data.append(split_row)
+    print(f'Média Qtd Vendida: {avg_amount}')
+    print(f'Mediana Qtd Vendida: {median_amount}')
+    print(f'Qtd Máxima Vendida: {max_amount}')
+    print(f'Qtd Mínima Vendida: {min_amount}')
+    print(f'Desvio Padrão das Qtds Vendidas: {standard_deviation_amount}')
 
-# print(full_data)
+    print("\n-------------------------Produto + Vendido-------------------------\n")
+    #2. Qual produto mais vendeu?
+    best_sold = round(z.mode(),2)
+    print(f'Produto mais vendido: {best_sold}')
 
-import pandas as pd
-
-df = pd.read_csv('vendas_ficticias.csv', sheet_name = None)
-display(df)
-df.head()
-
+dados_estatisticos(datas['Valor da venda'],datas['Quantidade vendida'],datas['Produto'])#chamando a funcao e passando os parametros
